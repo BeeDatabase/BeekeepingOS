@@ -5,9 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>蜂場專家 - 智慧管理系統</title>
     <meta name="theme-color" content="#1a1a1a">
-    <meta name="description" content="台灣頂級養蜂數位雙胞胎系統 V33.0">
-    <link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiQmVlIEV4cGVydCIsInNob3J0X25hbWUiOiJCZWUiLCJzdGFydF91cmwiOiIuLyIsImRpc3BsYXkiOiJzdGFuZGFsb25lIiwiYmFja2dyb3VuZF9jb2xvciI6IiMxYTFhMWEiLCJ0aGVtZV9jb2xvciI6IiNGRkQ3MDAiLCJpY29ucyI6W3sic3JjIjoiaHR0cHM6Ly9jZG4taWNvbnMtcG5nLmZsYXRpY29uLmNvbS81MTIvMjQwMi8yNDAyMjgyLnBuZyIsInNpemVzIjoiMTkyeDE5MiIsInR5cGUiOiJpbWFnZS9wbmcifV19">
-
+    
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
@@ -19,7 +17,7 @@
     <div id="splashScreen" class="splash-screen">
         <div class="splash-content">
             <div class="logo-hexagon"><span class="material-icons-round">hive</span></div>
-            <div class="splash-text"><h1>蜂場專家</h1><p>離線資料庫載入中...</p></div>
+            <div class="splash-text"><h1>蜂場專家</h1><p>系統載入中...</p></div>
             <div class="loading-bar"><div class="progress"></div></div>
         </div>
     </div>
@@ -27,7 +25,7 @@
     <aside class="sidebar">
         <div class="brand-area">
             <div class="logo-icon"><span class="material-icons-round">workspace_premium</span></div>
-            <div class="brand-text"><h2>蜂場專家</h2><small>V33.0 Offline Ready</small></div>
+            <div class="brand-text"><h2>蜂場專家</h2><small>V39.0 Enterprise</small></div>
         </div>
         <div class="nav-scroll-area">
             <div class="nav-group">核心管理</div>
@@ -41,17 +39,18 @@
             <button class="nav-btn" onclick="Router.go('production')"><span class="material-icons-round">factory</span>生產紀錄</button>
             <button class="nav-btn" onclick="Router.go('inventory')"><span class="material-icons-round">inventory_2</span>資材庫存</button>
 
-            <div class="nav-group">商業營運</div>
+            <div class="nav-group">商業與資源</div>
             <button class="nav-btn" onclick="Router.go('crm')"><span class="material-icons-round">groups</span>客戶訂單</button>
             <button class="nav-btn" onclick="Router.go('finance')"><span class="material-icons-round">monetization_on</span>財務報表</button>
-            <button class="nav-btn" onclick="Router.go('logistics')"><span class="material-icons-round">local_shipping</span>轉場運輸</button>
-
-            <div class="nav-group">環境與法規</div>
+            <button class="nav-btn" onclick="Router.go('flora')"><span class="material-icons-round">local_florist</span>蜜源植物圖鑑</button>
             <button class="nav-btn" onclick="Router.go('science')"><span class="material-icons-round">science</span>環境氣象</button>
-            <button class="nav-btn" onclick="Router.go('land')"><span class="material-icons-round">terrain</span>場地管理</button>
-            <button class="nav-btn" onclick="Router.go('compliance')"><span class="material-icons-round">gavel</span>法規合規</button>
             
-            <div class="nav-group">系統</div>
+            <div class="nav-group">戰略與系統</div>
+            <button class="nav-btn" onclick="Router.go('logistics')"><span class="material-icons-round">local_shipping</span>轉場運輸</button>
+            <button class="nav-btn" onclick="Router.go('compliance')"><span class="material-icons-round">gavel</span>法規合規</button>
+            <button class="nav-btn" onclick="Router.go('risk')"><span class="material-icons-round">security</span>風險管理</button>
+            <button class="nav-btn" onclick="Router.go('land')"><span class="material-icons-round">terrain</span>場地管理</button>
+            <button class="nav-btn" onclick="Router.go('esg')"><span class="material-icons-round">eco</span>永續經營</button>
             <button class="nav-btn" onclick="Router.go('settings')"><span class="material-icons-round">settings_suggest</span>系統設定</button>
         </div>
     </aside>
@@ -61,7 +60,7 @@
             <div class="header-left">
                 <button class="mobile-menu-btn" onclick="System.toggleSidebar()"><span class="material-icons-round">menu</span></button>
                 <h2 id="pageTitle">營運總覽</h2>
-                <div class="status-badge online">已離線支援</div>
+                <div class="status-badge online">Online</div>
             </div>
             <div class="header-right">
                 <div class="weather-widget glass-pill">
@@ -75,7 +74,6 @@
                 <button class="icon-btn" onclick="System.toggleTheme()"><span class="material-icons-round">dark_mode</span></button>
             </div>
         </header>
-
         <div id="app-content" class="content-area"></div>
     </main>
 
@@ -102,6 +100,7 @@
         <div class="notif-header"><h3>通知中心</h3><button onclick="NotificationCenter.toggle()" class="icon-btn"><span class="material-icons-round">close</span></button></div>
         <div id="notifList" class="notif-list"></div>
     </div>
+
     <div id="hiveModal" class="overlay hidden">
         <div class="glass-panel hive-modal-box">
             <div class="modal-header"><h2 id="modalTitle">📦 讀取中...</h2><button class="icon-btn" onclick="HiveOS.close()"><span class="material-icons-round">close</span></button></div>
@@ -114,9 +113,5 @@
     <div id="overlay" class="overlay hidden" onclick="System.closeAllOverlays()"></div>
 
     <script src="script.js"></script>
-    <script>
-        // 註冊 Service Worker
-        if ('serviceWorker' in navigator) { navigator.serviceWorker.register('./sw.js').then(()=>console.log('SW Registered')); }
-    </script>
 </body>
 </html>
