@@ -118,3 +118,20 @@ body {
     .bottom-nav { display: none !important; }
     .mobile-menu-btn { display: none !important; }
 }
+
+/* 請加在 style.css 的最後面 */
+
+/* 更新通知橫幅 */
+.update-toast {
+    position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%);
+    width: 90%; max-width: 400px; background: var(--primary); color: #000;
+    padding: 15px; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+    display: flex; justify-content: space-between; align-items: center; z-index: 9999;
+    animation: slideUp 0.5s ease;
+}
+.toast-content { display: flex; align-items: center; gap: 10px; font-weight: bold; font-size: 0.9rem; }
+.btn-update {
+    background: #000; color: var(--primary); border: none; padding: 8px 12px;
+    border-radius: 6px; font-weight: bold; cursor: pointer;
+}
+@keyframes slideUp { from { transform: translate(-50%, 20px); opacity: 0; } to { transform: translate(-50%, 0); opacity: 1; } }
