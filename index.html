@@ -126,5 +126,16 @@
     <div id="overlay" class="overlay hidden" onclick="System.toggleSidebar()"></div>
 
     <script src="script.js"></script>
+
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('./sw.js')
+                .then(() => console.log('✅ 離線模式已啟用 (Service Worker Registered)'))
+                .catch((err) => console.log('❌ 離線模式失敗', err));
+        }
+    </script>
+    
+</body>
+</html>
 </body>
 </html>
