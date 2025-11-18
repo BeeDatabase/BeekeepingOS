@@ -3,31 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>蜂場專家 - 系統修復中</title>
+    <title>蜂場專家 - 智慧管理系統</title>
     <meta name="theme-color" content="#1a1a1a">
-    
+    <meta name="description" content="台灣頂級養蜂數位雙胞胎系統 V40.0">
+
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-
-    <script>
-        window.onerror = function(msg, url, line, col, error) {
-            alert("❌ 系統發生錯誤：\n" + msg + "\n行數：" + line);
-            // 如果出錯，強制關閉載入畫面，讓您看到按鈕
-            setTimeout(() => {
-                document.getElementById('splashScreen').style.display = 'none';
-            }, 1000);
-        };
-    </script>
 </head>
 <body>
-
-    <button onclick="emergencyReset()" style="position:fixed; top:10px; right:10px; z-index:999999; background:red; color:white; border:2px solid white; padding:15px; font-size:16px; border-radius:8px; box-shadow:0 0 20px rgba(255,0,0,0.8); font-weight:bold;">
-        🚨 強制重置與修復
-    </button>
 
     <div id="splashScreen" class="splash-screen">
         <div class="splash-content">
@@ -45,7 +32,7 @@
             <div class="logo-icon"><span class="material-icons-round">workspace_premium</span></div>
             <div class="brand-text">
                 <h2>蜂場專家</h2>
-                <small>V39.0 Enterprise</small>
+                <small>V40.0 Final</small>
             </div>
         </div>
         
@@ -55,22 +42,23 @@
             <button class="nav-btn" onclick="Router.go('map')"><span class="material-icons-round">map</span>蜂場地圖</button>
             <button class="nav-btn" onclick="Router.go('tasks')"><span class="material-icons-round">assignment</span>工作排程</button>
 
-            <div class="nav-group">生態與資源</div>
-            <button class="nav-btn" onclick="Router.go('flora')"><span class="material-icons-round">local_florist</span>蜜源植物圖鑑</button>
-            <button class="nav-btn" onclick="Router.go('science')"><span class="material-icons-round">science</span>環境氣象</button>
-            <button class="nav-btn" onclick="Router.go('inventory')"><span class="material-icons-round">inventory_2</span>資材庫存</button>
-
             <div class="nav-group">生產技術</div>
             <button class="nav-btn" onclick="Router.go('breeding')"><span class="material-icons-round">pets</span>育王管理</button>
             <button class="nav-btn" onclick="Router.go('health')"><span class="material-icons-round">medical_services</span>病害防治</button>
             <button class="nav-btn" onclick="Router.go('production')"><span class="material-icons-round">factory</span>生產紀錄</button>
+            <button class="nav-btn" onclick="Router.go('inventory')"><span class="material-icons-round">inventory_2</span>資材庫存</button>
 
-            <div class="nav-group">商業與法規</div>
+            <div class="nav-group">商業與資源</div>
             <button class="nav-btn" onclick="Router.go('crm')"><span class="material-icons-round">groups</span>客戶訂單</button>
             <button class="nav-btn" onclick="Router.go('finance')"><span class="material-icons-round">monetization_on</span>財務報表</button>
+            <button class="nav-btn" onclick="Router.go('logistics')"><span class="material-icons-round">local_shipping</span>轉場運輸</button>
+
+            <div class="nav-group">環境與法規</div>
+            <button class="nav-btn" onclick="Router.go('science')"><span class="material-icons-round">science</span>環境氣象</button>
             <button class="nav-btn" onclick="Router.go('compliance')"><span class="material-icons-round">gavel</span>法規合規</button>
-            
-            <div class="nav-group">系統</div>
+            <button class="nav-btn" onclick="Router.go('risk')"><span class="material-icons-round">security</span>風險管理</button>
+            <button class="nav-btn" onclick="Router.go('land')"><span class="material-icons-round">terrain</span>場地管理</button>
+            <button class="nav-btn" onclick="Router.go('esg')"><span class="material-icons-round">eco</span>永續經營</button>
             <button class="nav-btn" onclick="Router.go('settings')"><span class="material-icons-round">settings_suggest</span>系統設定</button>
         </div>
     </aside>
@@ -99,21 +87,11 @@
     </main>
 
     <nav class="bottom-nav">
-        <button class="nav-item active" onclick="Router.go('dashboard')">
-            <span class="material-icons-round">dashboard</span><span class="nav-label">首頁</span>
-        </button>
-        <button class="nav-item" onclick="Router.go('map')">
-            <span class="material-icons-round">map</span><span class="nav-label">地圖</span>
-        </button>
-        <div class="fab-wrapper">
-            <button class="fab-main" onclick="QuickAction.toggle()"><span class="material-icons-round">add</span></button>
-        </div>
-        <button class="nav-item" onclick="Router.go('flora')">
-            <span class="material-icons-round">local_florist</span><span class="nav-label">植物</span>
-        </button>
-        <button class="nav-item" onclick="System.toggleSidebar()">
-            <span class="material-icons-round">menu</span><span class="nav-label">更多</span>
-        </button>
+        <button class="nav-item active" onclick="Router.go('dashboard')"><span class="material-icons-round">dashboard</span><span class="nav-label">首頁</span></button>
+        <button class="nav-item" onclick="Router.go('map')"><span class="material-icons-round">map</span><span class="nav-label">地圖</span></button>
+        <div class="fab-wrapper"><button class="fab-main" onclick="QuickAction.toggle()"><span class="material-icons-round">add</span></button></div>
+        <button class="nav-item" onclick="Router.go('flora')"><span class="material-icons-round">local_florist</span><span class="nav-label">植物</span></button>
+        <button class="nav-item" onclick="System.toggleSidebar()"><span class="material-icons-round">menu</span><span class="nav-label">更多</span></button>
     </nav>
 
     <div id="quickSheet" class="quick-sheet hidden">
@@ -144,25 +122,10 @@
     <script src="script.js"></script>
 
     <script>
-        function emergencyReset() {
-            if(confirm('⚠️ 是否強制清除所有快取與資料？\n\n這將修復：\n1. 畫面全白\n2. 無法載入\n3. 舊版本卡住\n\n(警告：您儲存的紀錄將會被清空)')) {
-                // 1. 清除所有資料
-                localStorage.clear();
-                sessionStorage.clear();
-
-                // 2. 殺死 Service Worker (清除 PWA 快取)
-                if ('serviceWorker' in navigator) {
-                    navigator.serviceWorker.getRegistrations().then(function(registrations) {
-                        for(let registration of registrations) {
-                            registration.unregister();
-                        }
-                    });
-                }
-                
-                // 3. 強制重整
-                alert('🧹 清理完成！正在重新載入系統...');
-                window.location.reload(true);
-            }
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('./sw.js')
+                .then(reg => console.log('✅ SW Registered: ' + reg.scope))
+                .catch(err => console.error('❌ SW Failed:', err));
         }
     </script>
 </body>
