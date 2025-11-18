@@ -5,8 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>蜂場專家 - 智慧管理系統</title>
     <meta name="theme-color" content="#1a1a1a">
-    <meta property="og:title" content="蜂場專家 - 智慧管理系統">
-    <meta name="description" content="台灣頂級養蜂數位雙胞胎系統 V41.0">
+    <meta name="description" content="台灣頂級養蜂數位雙胞胎系統 V43.0">
 
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
@@ -17,12 +16,20 @@
 </head>
 <body>
 
+    <div id="updateToast" class="update-toast hidden">
+        <div class="toast-content">
+            <span class="material-icons-round">system_update</span>
+            <span>發現新版本 V43.0，請更新以獲得最新功能！</span>
+        </div>
+        <button onclick="window.location.reload()" class="btn-update">立即更新</button>
+    </div>
+
     <div id="splashScreen" class="splash-screen">
         <div class="splash-content">
             <div class="logo-hexagon"><span class="material-icons-round">hive</span></div>
             <div class="splash-text">
                 <h1>蜂場專家</h1>
-                <p>系統載入中...</p>
+                <p>正在檢查更新...</p>
             </div>
             <div class="loading-bar"><div class="progress"></div></div>
         </div>
@@ -33,7 +40,7 @@
             <div class="logo-icon"><span class="material-icons-round">workspace_premium</span></div>
             <div class="brand-text">
                 <h2>蜂場專家</h2>
-                <small>V41.0 Enterprise</small>
+                <small>V43.0 Auto-Update</small>
             </div>
         </div>
         
@@ -69,7 +76,7 @@
             <div class="header-left">
                 <button class="mobile-menu-btn" onclick="System.toggleSidebar()"><span class="material-icons-round">menu</span></button>
                 <h2 id="pageTitle">營運總覽</h2>
-                <div class="status-badge online">系統連線正常</div>
+                <div class="status-badge online">Online</div>
             </div>
             <div class="header-right">
                 <div class="weather-widget glass-pill">
@@ -91,7 +98,7 @@
         <button class="nav-item active" onclick="Router.go('dashboard')"><span class="material-icons-round">dashboard</span><span class="nav-label">首頁</span></button>
         <button class="nav-item" onclick="Router.go('map')"><span class="material-icons-round">map</span><span class="nav-label">地圖</span></button>
         <div class="fab-wrapper"><button class="fab-main" onclick="QuickAction.toggle()"><span class="material-icons-round">add</span></button></div>
-        <button class="nav-item" onclick="Router.go('inventory')"><span class="material-icons-round">inventory_2</span><span class="nav-label">庫存</span></button>
+        <button class="nav-item" onclick="Router.go('flora')"><span class="material-icons-round">local_florist</span><span class="nav-label">植物</span></button>
         <button class="nav-item" onclick="System.toggleSidebar()"><span class="material-icons-round">menu</span><span class="nav-label">更多</span></button>
     </nav>
 
@@ -121,5 +128,30 @@
     <div id="overlay" class="overlay hidden" onclick="System.closeAllOverlays()"></div>
 
     <script src="script.js"></script>
+
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('./sw.js').then(reg => {
+                console.log('SW Registered');
+                // 偵測是否有新版本
+                reg.onupdatefound = () => {
+                    const newWorker = reg.installing;
+                    newWorker.onstatechange = () => {
+                        if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                            // 發現新版本，顯示更新通知
+                            document.getElementById('updateToast').classList.remove('hidden');
+                        }
+                    };
+                };
+            });
+            // 重新整理後自動使用新版
+            let refreshing;
+            navigator.serviceWorker.addEventListener('controllerchange', () => {
+                if (refreshing) return;
+                window.location.reload();
+                refreshing = true;
+            });
+        }
+    </script>
 </body>
 </html>
