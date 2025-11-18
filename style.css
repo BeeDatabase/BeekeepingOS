@@ -58,3 +58,32 @@ body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--tex
     .main-window { padding-bottom:80px; }
 }
 @media(min-width:769px) { .sidebar { transform:translateX(0)!important; position:relative; } }
+
+/* --- V28.0 新增樣式 --- */
+
+/* 單箱視窗 */
+.hive-modal-box {
+    position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    width: 90%; max-width: 450px; background: #1e1e1e; z-index: 3000;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.8); padding: 0; border: 1px solid #444; overflow: hidden;
+}
+.modal-header { padding: 15px; background: #252525; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #333; }
+.modal-header h2 { margin: 0; color: var(--primary); font-size: 1.2rem; }
+.hive-status-tags { padding: 15px; display: flex; gap: 10px; }
+.status-tag { padding: 4px 10px; border-radius: 20px; font-size: 0.8rem; background: #333; color: #fff; border: 1px solid #555; }
+.hive-tabs { display: flex; border-bottom: 1px solid #333; }
+.tab-btn { flex: 1; background: none; border: none; color: #888; padding: 12px; cursor: pointer; transition: 0.2s; }
+.tab-btn.active { color: var(--primary); border-bottom: 2px solid var(--primary); background: rgba(255,215,0,0.05); }
+.hive-content { padding: 20px; min-height: 200px; }
+
+/* 植物圖鑑 */
+.flora-card { display: flex; justify-content: space-between; align-items: center; background: #252525; padding: 12px; border-radius: 8px; margin-bottom: 10px; border: 1px solid #333; }
+.flora-info h4 { margin: 0 0 5px 0; color: #fff; }
+.flora-info p { margin: 0; color: #888; font-size: 0.8rem; }
+.flora-stars { font-size: 0.8rem; color: var(--primary); text-align: right; }
+
+/* 列表項目 */
+.list-item { padding: 12px; border-bottom: 1px solid #333; display: flex; justify-content: space-between; align-items: center; }
+.list-item:last-child { border-bottom: none; }
+.list-title { font-weight: bold; display: block; color: #e0e0e0; }
+.list-sub { font-size: 0.8rem; color: #888; }
